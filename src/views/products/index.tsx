@@ -83,12 +83,14 @@ function ProductCard({
       to={`/products/${id}`}
       className="w-full h-80 border border-neutral-400 shadow-around-sm rounded-md bg-white overflow-hidden p-2 flex flex-col justify-between"
     >
-      <div className="w-full h-48">
-        <img
-          src={pictures[0].url}
-          alt={title || "Product image"}
-          className="w-full h-48 rounded-md bg-neutral-200"
-        />
+      <div className="w-full w-full h-96 bg-slate-300 rounded-md">
+        {pictures.length > 0 && (
+          <img
+            src={pictures[0].url}
+            alt={title || "Product image"}
+            className="w-full h-48 rounded-md bg-neutral-200"
+          />
+        )}
       </div>
       <footer className="flex flex-col justify-between h-full pt-2">
         <strong className="text-lg">{title}</strong>
