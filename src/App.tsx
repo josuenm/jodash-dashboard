@@ -1,3 +1,5 @@
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { BrowserRouter } from "react-router-dom";
 import "./assets/css/app.css";
 import { CustomerContextProvider } from "./contexts/customerContext";
@@ -7,15 +9,17 @@ import Routes from "./router";
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalToolsContextProvider>
-        <CustomerContextProvider>
-          <ProductContextProvider>
-            <Routes />
-          </ProductContextProvider>
-        </CustomerContextProvider>
-      </GlobalToolsContextProvider>
-    </BrowserRouter>
+    <DndProvider backend={HTML5Backend}>
+      <BrowserRouter>
+        <GlobalToolsContextProvider>
+          <CustomerContextProvider>
+            <ProductContextProvider>
+              <Routes />
+            </ProductContextProvider>
+          </CustomerContextProvider>
+        </GlobalToolsContextProvider>
+      </BrowserRouter>
+    </DndProvider>
   );
 }
 
