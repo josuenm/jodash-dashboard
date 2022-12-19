@@ -1,34 +1,52 @@
-import { LocalProductProps } from "@/@types/productType";
+import { EditProductProps, LocalProductProps } from "@/@types/productType";
 import { api } from "./api";
 
 const token =
   "eyJhbGciOiJIUzI1NiJ9.N2NmZTVmODctYWRlMi00MjczLWIwYTctMTA5OGFmZTY4YzE0.k8jCoh-neYbDlloaY4RhaMKZI1xBPmQKUBX09d6KXFg";
 
 export const productApi = {
-  createProduct: async ({
-    title,
-    description,
-    price,
-    quantity,
-    colors,
-    categories,
-    pictures,
-  }: LocalProductProps) => {
+  createProduct: async (product: LocalProductProps) => {
     const formData = new FormData();
 
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("price", price.toString());
-    formData.append("quantity", quantity.toString());
-    formData.append("colors", JSON.stringify(colors));
-    formData.append("categories", JSON.stringify(categories));
+    formData.append("title", product.title);
+    formData.append("description", product.description);
+    formData.append("price", product.price.toString());
+    formData.append("quantity", product.quantity.toString());
+    formData.append("colors", JSON.stringify(product.colors));
+    formData.append("categories", JSON.stringify(product.categories));
 
-    pictures.forEach((picture) => {
+    product.pictures.forEach((picture) => {
       formData.append("files", picture, picture.name);
     });
 
     return await api
       .post("/product/create", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((res) => res.response);
+  },
+
+  editProduct: async (product: EditProductProps) => {
+    const formData = new FormData();
+
+    formData.append("id", product.id);
+    formData.append("title", product.title);
+    formData.append("description", product.description);
+    formData.append("price", product.price.toString());
+    formData.append("quantity", product.quantity.toString());
+    formData.append("colors", JSON.stringify(product.colors));
+    formData.append("categories", JSON.stringify(product.categories));
+    formData.append("pictures", JSON.stringify(product.pictures));
+
+    product.uploadedPictures.forEach((picture) => {
+      formData.append("files", picture, picture.name);
+    });
+
+    return await api
+      .put(`/product/edit/${product.id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${token}`,
