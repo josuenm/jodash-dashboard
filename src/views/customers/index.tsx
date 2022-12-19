@@ -1,3 +1,4 @@
+import Head from "@/components/head";
 import { Pagination } from "@/components/pagination";
 import { useCustomer } from "@/contexts/customerContext";
 import { useState } from "react";
@@ -75,6 +76,8 @@ export default function Customers() {
 
   return (
     <>
+      <Head title="Customers" />
+
       <section className="overflow-x-auto">
         <table className="w-full">
           <thead className="border-b border-b-slate-300">

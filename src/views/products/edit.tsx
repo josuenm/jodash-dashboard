@@ -1,12 +1,13 @@
-import { LocalProductProps } from "@/@types/productType";
+import { EditProductProps } from "@/@types/productType";
 import Head from "@/components/head";
 import { FetchLoadingScreen } from "@/components/loading-screen";
 import { UploadImage } from "@/components/upload-image";
 import { useProduct } from "@/contexts/productContext";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MdClose } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { RiCloseCircleFill } from "react-icons/ri";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface FormGroupProps {
   children?: React.ReactNode | React.ReactNode[];
@@ -17,13 +18,15 @@ type KeyString = { [key: string]: any };
 
 type EventOnChange = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
-export default function AddProduct() {
+export default function EditProduct() {
   const colorInput = useRef<HTMLInputElement>(null);
   const categoryInput = useRef<HTMLInputElement>(null);
 
-  const navigate = useNavigate();
+  const { id } = useParams();
+  const { getProductById } = useProduct();
 
-  const [inputs, setInputs] = useState<LocalProductProps>({
+  const [inputs, setInputs] = useState<EditProductProps>({
+    id: "",
     title: "",
     description: "",
     price: 0,
@@ -31,7 +34,22 @@ export default function AddProduct() {
     colors: [],
     categories: [],
     pictures: [],
+    uploadedPictures: [],
   });
+
+  const getProduct = useCallback(async () => {
+    const res = await getProductById(id as string);
+
+    if (res) {
+      setInputs({ ...res, uploadedPictures: [] });
+    }
+  }, []);
+
+  useEffect(() => {
+    getProduct();
+  }, []);
+
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({
     title: "",
@@ -59,16 +77,25 @@ export default function AddProduct() {
   };
 
   const addPicture = (pictures: File[]) => {
-    const arrPictures = inputs.pictures;
-    pictures.forEach((pic) => inputs.pictures.push(pic));
+    const arrPictures = inputs.uploadedPictures;
+    pictures.forEach((pic) => inputs.uploadedPictures.push(pic));
 
-    setInputs((prev) => ({ ...prev, pictures: arrPictures }));
+    setInputs((prev) => ({ ...prev, uploadedPictures: arrPictures }));
   };
 
   const deletePicture = (name: string) => {
     setInputs((prev) => ({
       ...prev,
-      pictures: inputs.pictures.filter((img) => img.name !== name),
+      uploadedPictures: inputs.uploadedPictures.filter(
+        (img) => img.name !== name
+      ),
+    }));
+  };
+
+  const deletePictureThatAlreadyExist = (id: string) => {
+    setInputs((prev) => ({
+      ...prev,
+      pictures: inputs.pictures.filter((img) => img.id !== id),
     }));
   };
 
@@ -101,7 +128,7 @@ export default function AddProduct() {
     }));
   };
 
-  const { createProduct, isLoading } = useProduct();
+  const { editProduct, isLoading } = useProduct();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,12 +170,12 @@ export default function AddProduct() {
       return;
     }
 
-    createProduct(inputs);
+    editProduct(inputs);
   };
 
   return (
     <>
-      <Head title="Add Product" />
+      <Head title="Edit Product" />
 
       <FetchLoadingScreen state={isLoading} />
 
@@ -332,10 +359,42 @@ export default function AddProduct() {
             </label>
 
             <UploadImage
-              pictures={inputs.pictures}
+              pictures={inputs.uploadedPictures}
               addPicture={addPicture}
               deletePicture={deletePicture}
             />
+            {inputs.pictures.length > 0 && (
+              <div className="mt-5">
+                <label className="text-xl font-medium">
+                  Photos that already exist:
+                </label>
+                <div className="mt-2 overflow-auto">
+                  <div
+                    className="flex gap-4"
+                    style={{ width: `${inputs.pictures.length * 12}rem` }}
+                  >
+                    {inputs.pictures.map((picture, index) => (
+                      <div
+                        key={index}
+                        className="relative w-44 h-44 border-2 border-slate-400 rounded-md flex justify-center items-center overflow-hidden"
+                      >
+                        <RiCloseCircleFill
+                          className="w-9 h-9 absolute top-2 right-2 text-white"
+                          onClick={() =>
+                            deletePictureThatAlreadyExist(picture.id)
+                          }
+                        />
+                        <img
+                          src={picture.url}
+                          className="w-48 h-48 rounded-md object-cover"
+                          alt="Picture that already exist"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </FormGroup>
 
           <FormGroup className="pt-6 border-t border-t-slate-300">
@@ -343,7 +402,7 @@ export default function AddProduct() {
               type="submit"
               className="bg-primary px-5 py-2 rounded-md text-md text-white font-medium"
             >
-              Submit
+              Confirm edition
             </button>
             <button
               type="button"

@@ -1,9 +1,10 @@
 import { ProductProps } from "@/@types/productType";
+import Head from "@/components/head";
 import { FetchLoadingScreen } from "@/components/loading-screen";
 import { useProduct } from "@/contexts/productContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function Product() {
   const [product, setProduct] = useState<ProductProps>({
@@ -35,6 +36,8 @@ export default function Product() {
 
   return (
     <>
+      <Head title={product.title || "Product"} />
+
       <Tools />
 
       {isLoading ? (
@@ -180,12 +183,16 @@ function DeleteModal({
 function Tools() {
   const [deleteModal, setDeleteModal] = useState(false);
 
+  const { id } = useParams();
+
   return (
     <>
       <DeleteModal state={deleteModal} setState={setDeleteModal} />
 
       <div className="fixed bottom-10 right-2/4 translate-x-2/4 rounded-full bg-primary text-white flex gap-2">
-        <button className="text-lg font-medium px-4 py-2">Edit</button>
+        <Link to={`/products/edit/${id}`}>
+          <button className="text-lg font-medium px-4 py-2">Edit</button>
+        </Link>
         <button
           className="text-lg font-medium px-4 py-2"
           onClick={() => setDeleteModal(true)}

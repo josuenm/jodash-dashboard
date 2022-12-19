@@ -1,4 +1,5 @@
 import { ProductProps } from "@/@types/productType";
+import Head from "@/components/head";
 import { useProduct } from "@/contexts/productContext";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -22,6 +23,8 @@ export default function Products() {
 
   return (
     <>
+      <Head title="Products" />
+
       <section>
         <h2 className="font-bold text-3xl">Create a product</h2>
         <p className="text-slate-600 mb-3">

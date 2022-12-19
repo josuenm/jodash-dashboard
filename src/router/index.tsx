@@ -3,6 +3,7 @@ import Customers from "@/views/customers";
 import Dashboard from "@/views/dashboard";
 import Products from "@/views/products";
 import AddProduct from "@/views/products/addProduct";
+import EditProduct from "@/views/products/edit";
 import Product from "@/views/products/product";
 import { useRoutes } from "react-router-dom";
 
@@ -36,6 +37,10 @@ export default function Routes() {
         {
           path: "/products/:id",
           element: <Product />,
+        },
+        {
+          path: "/products/edit/:id",
+          element: <EditProduct />,
         },
       ],
     },
