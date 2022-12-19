@@ -1,4 +1,5 @@
 import { LocalProductProps } from "@/@types/productType";
+import Head from "@/components/head";
 import { FetchLoadingScreen } from "@/components/loading-screen";
 import { UploadImage } from "@/components/upload-image";
 import { useProduct } from "@/contexts/productContext";
@@ -147,6 +148,8 @@ export default function AddProduct() {
 
   return (
     <>
+      <Head title="Add Product" />
+
       <FetchLoadingScreen state={isLoading} />
 
       <h2 className="font-bold text-3xl">Create new product</h2>

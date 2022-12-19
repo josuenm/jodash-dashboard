@@ -2,6 +2,7 @@ import {
   SalesThisMonthChart,
   SalesTodayChart,
 } from "@/components/charts/area-chart";
+import Head from "@/components/head";
 import { useCustomer } from "@/contexts/customerContext";
 import { CustomerProps } from "../../@types/customerType";
 
@@ -65,6 +66,8 @@ export default function Dashboard() {
 
   return (
     <>
+      <Head title="Home" />
+
       <section className="flex flex-col gap-6 mb-6">
         <Card title="Quantity sold today" value={QuantitySoldToday} />
         <Card
