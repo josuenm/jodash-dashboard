@@ -99,7 +99,7 @@ export function Sidemenu() {
       <Header isActive={isActive} setIsActive={setIsActive} />
       <SidemenuMobile isActive={isActive} setIsActive={setIsActive} />
 
-      <main className="safe-zone pt-6">
+      <main className="safe-zone pt-20">
         <Outlet />
       </main>
     </>

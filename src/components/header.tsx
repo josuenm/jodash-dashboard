@@ -21,7 +21,7 @@ export function Logo({ classMain, classPoint }: LogoProps) {
 
 export function Header({ isActive, setIsActive }: HeaderProps) {
   return (
-    <header className="py-2 shadow-around-sm">
+    <header className="fixed top-0 left-0 w-full z-10 bg-white/60 backdrop-blur-sm py-2 shadow-around-sm">
       <div className="safe-zone flex justify-between items-center ">
         <button onClick={() => setIsActive(!isActive)}>
           <MdMenu className="w-7 h-7" />
