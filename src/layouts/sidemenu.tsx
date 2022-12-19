@@ -51,12 +51,14 @@ export function SidebarOption({ title, path, setIsActive }: SidebarProps) {
 
   return (
     <Link to={path} onClick={() => setIsActive(false)}>
-      <li className={"px-5 font-medium text-xl py-3 " + isActive}>{title}</li>
+      <li className={"px-5 font-medium text-xl md:text-md py-3 " + isActive}>
+        {title}
+      </li>
     </Link>
   );
 }
 
-export function SidemenuMobile({ isActive, setIsActive }: SidemenuProps) {
+export function AsideMenu({ isActive, setIsActive }: SidemenuProps) {
   return (
     <>
       {isActive && <Background onClick={() => setIsActive(false)} />}
@@ -71,7 +73,7 @@ export function SidemenuMobile({ isActive, setIsActive }: SidemenuProps) {
               className="fixed top-0 left-0 min-h-screen bg-white z-20 overflow-x-hidden rounded-r-lg"
             >
               <div className="w-full flex justify-center py-12">
-                <Logo classMain="text-4xl" classPoint="text-4xl" />
+                <Logo classMain="text-4xl md:text-2xl" classPoint="text-4xl" />
               </div>
 
               <ul>
@@ -97,9 +99,9 @@ export function Sidemenu() {
   return (
     <>
       <Header isActive={isActive} setIsActive={setIsActive} />
-      <SidemenuMobile isActive={isActive} setIsActive={setIsActive} />
+      <AsideMenu isActive={isActive} setIsActive={setIsActive} />
 
-      <main className="safe-zone pt-20">
+      <main className="safe-zone my-20 bg-white rounded-lg p-5">
         <Outlet />
       </main>
     </>

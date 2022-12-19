@@ -40,7 +40,7 @@ export default function Products() {
       <section className="my-20">
         <h2 className="font-bold text-xl mb-5">Products</h2>
 
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {isLoading
             ? [0, 1, 2, 3, 4].map((skeleton) => (
                 <SkeletonProductCard key={skeleton} />
@@ -83,12 +83,14 @@ function ProductCard({
       to={`/products/${id}`}
       className="w-full h-80 border border-neutral-400 shadow-around-sm rounded-md bg-white overflow-hidden p-2 flex flex-col justify-between"
     >
-      <div className="w-full h-48">
-        <img
-          src={pictures[0].url}
-          alt={title || "Product image"}
-          className="w-full h-48 rounded-md bg-neutral-200"
-        />
+      <div className="w-full w-full h-96 bg-slate-300 rounded-md">
+        {pictures.length > 0 && (
+          <img
+            src={pictures[0].url}
+            alt={title || "Product image"}
+            className="w-full h-48 rounded-md bg-neutral-200"
+          />
+        )}
       </div>
       <footer className="flex flex-col justify-between h-full pt-2">
         <strong className="text-lg">{title}</strong>

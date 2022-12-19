@@ -76,7 +76,7 @@ export default function Product() {
                   </div>
                 ))
               ) : (
-                <div className="relative w-full h-60 border-2 border-slate-400 bg-slate-400 rounded-md flex justify-center items-center overflow-hidden">
+                <div className="relative w-full h-60 border-2 border-slate-400 bg-slate-400 rounded-md flex justify-center items-center overflow-hidden md:w-96 md:h-96">
                   {product.pictures[0]?.url && (
                     <img
                       src={product.pictures[0].url}
@@ -89,30 +89,32 @@ export default function Product() {
             </div>
           </div>
 
-          <p className="text-md text-neutral-600 font-medium">
-            {product.description}
-          </p>
+          <div className="flex flex-col gap-4">
+            <p className="text-md text-neutral-600 font-medium">
+              {product.description}
+            </p>
 
-          <div>
-            <strong className="text-lg">Colors available</strong>
-            <ul className="list-disc">
-              {product.colors.map((color, index) => (
-                <li key={index} className="text-md">
-                  - {color}
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div>
+              <strong className="text-lg">Colors available</strong>
+              <ul>
+                {product.colors.map((color, index) => (
+                  <li key={index} className="text-md">
+                    - {color}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <strong className="text-lg">Categories</strong>
-            <ul className="list-disc">
-              {product.categories.map((category, index) => (
-                <li key={index} className="text-md">
-                  - {category.name}
-                </li>
-              ))}
-            </ul>
+            <div>
+              <strong className="text-lg">Categories</strong>
+              <ul>
+                {product.categories.map((category, index) => (
+                  <li key={index} className="text-md">
+                    - {category.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </main>
       )}
@@ -190,11 +192,11 @@ function Tools() {
       <DeleteModal state={deleteModal} setState={setDeleteModal} />
 
       <div className="fixed bottom-10 right-2/4 translate-x-2/4 rounded-full bg-primary text-white flex gap-2">
-        <Link to={`/products/edit/${id}`}>
+        <Link to={`/products/edit/${id}`} className="md:hover:opacity-50">
           <button className="text-lg font-medium px-4 py-2">Edit</button>
         </Link>
         <button
-          className="text-lg font-medium px-4 py-2"
+          className="text-lg font-medium px-4 py-2 md:hover:opacity-50"
           onClick={() => setDeleteModal(true)}
         >
           Delete
