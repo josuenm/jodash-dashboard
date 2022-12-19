@@ -1,4 +1,8 @@
-import { LocalProductProps, ProductProps } from "@/@types/productType";
+import {
+  EditProductProps,
+  LocalProductProps,
+  ProductProps,
+} from "@/@types/productType";
 import { productApi } from "@/services/axios/productApi";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +14,7 @@ interface ProviderProps {
 
 interface ContextProps {
   createProduct: (data: LocalProductProps) => Promise<void>;
+  editProduct: (data: EditProductProps) => Promise<void>;
   getProductById: (id: string) => Promise<ProductProps | void>;
   getAllProducts: () => Promise<ProductProps[]>;
   deleteProduct: (id: string) => Promise<void>;
@@ -38,6 +43,23 @@ export function ProductContextProvider({ children }: ProviderProps) {
 
       case 401:
         errorNotification("You don't have admin permissions");
+        break;
+
+      default:
+        errorNotification("Something wrong, try again");
+        break;
+    }
+  };
+
+  const editProduct = async (data: EditProductProps) => {
+    setIsLoading(true);
+    const res = await productApi.editProduct(data);
+    setIsLoading(false);
+
+    switch (res.status) {
+      case 200:
+        successNotification("Product updated successfully");
+        navigate(`/products/${res.data.id}`);
         break;
 
       default:
@@ -98,6 +120,7 @@ export function ProductContextProvider({ children }: ProviderProps) {
     <Context.Provider
       value={{
         createProduct,
+        editProduct,
         getProductById,
         getAllProducts,
         deleteProduct,
