@@ -40,7 +40,7 @@ export default function Products() {
       <section className="my-20">
         <h2 className="font-bold text-xl mb-5">Products</h2>
 
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {isLoading
             ? [0, 1, 2, 3, 4].map((skeleton) => (
                 <SkeletonProductCard key={skeleton} />

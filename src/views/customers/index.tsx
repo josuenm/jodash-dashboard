@@ -1,12 +1,19 @@
 import Head from "@/components/head";
 import { Pagination } from "@/components/pagination";
 import { useCustomer } from "@/contexts/customerContext";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { useDrag, useDrop } from "react-dnd";
 
 interface HeadersProps {
   id: number;
   title: string;
   path: string;
+}
+
+interface ThProps extends HeadersProps {
+  moveHeader: (from: number, to: number) => void;
+  index: number;
 }
 
 type TypeKey = {
@@ -74,6 +81,17 @@ export default function Customers() {
     }
   };
 
+  const moveHeader = (from: number, to: number) => {
+    const dataFrom = headers.find((item) => item.id === from) as HeadersProps;
+    const dataTo = headers[to];
+    const fromIndex = headers.findIndex((item) => item.id === from);
+
+    const newHeader = [...headers];
+    newHeader[fromIndex] = dataTo;
+    newHeader[to] = dataFrom;
+    setHeaders(newHeader);
+  };
+
   return (
     <>
       <Head title="Customers" />
@@ -82,8 +100,13 @@ export default function Customers() {
         <table className="w-full">
           <thead className="border-b border-b-slate-300">
             <tr>
-              {headers.map((item) => (
-                <Th {...item} key={item.id} />
+              {headers.map((item, index) => (
+                <Th
+                  {...item}
+                  key={item.id}
+                  index={index}
+                  moveHeader={moveHeader}
+                />
               ))}
             </tr>
           </thead>
@@ -92,10 +115,13 @@ export default function Customers() {
             {customers
               .slice(currentPage * 30 - 30, currentPage * 30)
               .map((item: TypeKey) => (
-                <tr key={item.id}>
+                <tr
+                  key={item.id}
+                  className="md:hover:bg-slate-100 cursor-pointer"
+                >
                   {headers.map(({ path }, index) => (
                     <td
-                      className={`py-3 ${
+                      className={`py-3 md:px-5 ${
                         index > 0 && "border-l border-l-slate-200 px-2"
                       }`}
                       key={index}
@@ -120,14 +146,32 @@ export default function Customers() {
   );
 }
 
-export function Th({ title, id }: HeadersProps) {
+export function Th({ title, id, moveHeader, index }: ThProps) {
+  const ref = useRef(null);
+
+  const [{ isDragging }, dragRef] = useDrag(() => ({
+    type: "th",
+    item: { id: index },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
+  const [_, dropRef] = useDrop({
+    accept: "th",
+    drop: (item: HeadersProps) => moveHeader(item.id, index),
+  });
+
+  dragRef(dropRef(ref));
+
   return (
     <th
-      className={`w-[25%] p-3 text-start ${
-        id > 0 && "border-l border-l-slate-200"
+      ref={ref}
+      className={`w-[25%] p-3 text-start cursor-pointer md:hover:bg-slate-100 ${
+        index > 0 && "border-l border-l-slate-200"
       }`}
     >
-      {title}
+      <motion.div layout>{isDragging ? "" : title}</motion.div>
     </th>
   );
 }

@@ -20,7 +20,7 @@ export function Pagination({
   const minPages = 1;
   const maxPages = pages;
 
-  const activeStyle = "border-primary text-primary";
+  const activeStyle = "border-primary text-primary bg-primary/20";
   const normalStyle = "border-slate-300 text-slate-600";
 
   const handlePage = (page: number) => {
@@ -31,7 +31,7 @@ export function Pagination({
   return (
     <div className="flex">
       <button
-        className={`hidden cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white ${normalStyle}`}
+        className={`hidden cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white cursor-pointer md:hover:opacity-70 ${normalStyle}`}
         onClick={() => handlePage(currentPage - 1)}
         disabled={currentPage === minPages}
       >
@@ -39,7 +39,7 @@ export function Pagination({
       </button>
 
       <button
-        className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white ${
+        className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white cursor-pointer md:hover:opacity-70 ${
           currentPage === minPages ? activeStyle : normalStyle
         }`}
         onClick={() => handlePage(minPages)}
@@ -49,7 +49,7 @@ export function Pagination({
 
       {maxPages > 4 && currentPage - 2 > minPages + 1 && (
         <button
-          className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white ${normalStyle}`}
+          className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white cursor-pointer  ${normalStyle}`}
         >
           ...
         </button>
@@ -62,7 +62,7 @@ export function Pagination({
         )
         .map((page) => (
           <button
-            className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white ${
+            className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white cursor-pointer md:hover:opacity-70 ${
               currentPage === page ? activeStyle : normalStyle
             }`}
             onClick={() => handlePage(page)}
@@ -74,14 +74,14 @@ export function Pagination({
 
       {maxPages > 4 && currentPage < maxPages - 2 && (
         <button
-          className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white ${normalStyle}`}
+          className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white cursor-pointer ${normalStyle}`}
         >
           ...
         </button>
       )}
 
       <button
-        className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white ${
+        className={`cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white cursor-pointer md:hover:opacity-70 ${
           currentPage === maxPages ? activeStyle : normalStyle
         }`}
         onClick={() => handlePage(maxPages)}
@@ -90,7 +90,7 @@ export function Pagination({
       </button>
 
       <button
-        className={`hidden cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white ${normalStyle}`}
+        className={`hidden cursor-default relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 bg-white cursor-pointer md:hover:opacity-70 ${normalStyle}`}
         onClick={() => handlePage(currentPage + 1)}
         disabled={currentPage === maxPages}
       >
@@ -103,7 +103,7 @@ export function Pagination({
 function ArrowLeft() {
   return (
     <svg
-      className="h-5 w-5"
+      className="h-5 w-5 cursor-pointer md:hover:opacity-70"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
@@ -121,7 +121,7 @@ function ArrowLeft() {
 function ArrowRight() {
   return (
     <svg
-      className="h-5 w-5"
+      className="h-5 w-5 cursor-pointer md:hover:opacity-70"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
