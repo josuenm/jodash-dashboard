@@ -6,6 +6,6 @@
   html,
   body {
     font-family: "Inter", sans-serif;
-    @apply bg-slate-50;
+    @apply bg-slate-200;
   }
 }
