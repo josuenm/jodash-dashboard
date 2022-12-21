@@ -1,7 +1,8 @@
+import { SignInProps } from "@/@types/userType";
 import { createContext, ReactNode, useContext } from "react";
 
 interface ContextProps {
-  signIn: () => Promise<void>;
+  signIn: (data: SignInProps) => Promise<void>;
   signUp: () => Promise<void>;
   signOut: () => void;
 }
@@ -13,7 +14,7 @@ interface ProviderProps {
 const Context = createContext({} as ContextProps);
 
 export function AccessContextProvider({ children }: ProviderProps) {
-  const signIn = async () => {};
+  const signIn = async (data: SignInProps) => {};
 
   const signUp = async () => {};
 
