@@ -5,7 +5,10 @@ import Products from "@/views/products";
 import AddProduct from "@/views/products/addProduct";
 import EditProduct from "@/views/products/edit";
 import Product from "@/views/products/product";
-import { useRoutes } from "react-router-dom";
+import SignIn from "@/views/signin";
+import { parseCookies } from "nookies";
+import { useEffect } from "react";
+import { useLocation, useNavigate, useRoutes } from "react-router-dom";
 
 interface RouteProps {
   path: string;
@@ -13,6 +16,16 @@ interface RouteProps {
 }
 
 export default function Routes() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const normalRoutes = [
+    {
+      path: "/signin",
+      element: <SignIn />,
+    },
+  ];
+
   const authRoutes = [
     {
       path: "/",
@@ -46,7 +59,17 @@ export default function Routes() {
     },
   ];
 
-  const routes: RouteProps[] = [...authRoutes];
+  useEffect(() => {
+    const cookies = parseCookies();
 
+    if (
+      !cookies["jodash.token"] &&
+      authRoutes[0].children.some((item) => item.path === pathname)
+    ) {
+      navigate("/signin");
+    }
+  }, []);
+
+  const routes: RouteProps[] = [...authRoutes, ...normalRoutes];
   return useRoutes(routes);
 }
