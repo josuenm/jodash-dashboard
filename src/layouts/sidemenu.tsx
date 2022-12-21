@@ -70,21 +70,31 @@ export function AsideMenu({ isActive, setIsActive }: SidemenuProps) {
               initial={{ width: 0 }}
               animate={{ width: "17rem" }}
               exit={{ width: 0 }}
-              className="fixed top-0 left-0 min-h-screen bg-white z-20 overflow-x-hidden rounded-r-lg"
+              className="fixed top-0 left-0 min-h-screen bg-white z-20 overflow-x-hidden rounded-r-lg flex flex-col justify-between"
             >
-              <div className="w-full flex justify-center py-12">
-                <Logo classMain="text-4xl md:text-2xl" classPoint="text-4xl" />
-              </div>
-
-              <ul>
-                {sidemenuOptions.map((item, index) => (
-                  <SidebarOption
-                    {...item}
-                    key={index}
-                    setIsActive={setIsActive}
+              <header>
+                <div className="w-full flex justify-center py-12">
+                  <Logo
+                    classMain="text-4xl md:text-2xl"
+                    classPoint="text-4xl"
                   />
-                ))}
-              </ul>
+                </div>
+
+                <ul>
+                  {sidemenuOptions.map((item, index) => (
+                    <SidebarOption
+                      {...item}
+                      key={index}
+                      setIsActive={setIsActive}
+                    />
+                  ))}
+                </ul>
+              </header>
+              <footer className="px-5 py-8 flex justify-center">
+                <button className="px-8 py-2 duration-300 bg-primary/20 hover:bg-primary/60 font-bold rounded-md">
+                  Sign out
+                </button>
+              </footer>
             </motion.aside>
           </>
         )}

@@ -3,13 +3,24 @@ import { helper } from "@/utils";
 import {
   CategoryScale,
   Chart as ChartJS,
+  Filler,
   LinearScale,
   LineElement,
   PointElement,
+  Title,
+  Tooltip,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler
+);
 
 interface AreaChartProps {
   labels: string[];
