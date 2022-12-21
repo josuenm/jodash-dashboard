@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 0;
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #0059ff;
+    border-radius: 3rem;
+  }
+
   html,
   body {
     font-family: "Inter", sans-serif;
