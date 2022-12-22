@@ -1,4 +1,4 @@
-import { SignInProps } from "@/@types/userType";
+import { SignInProps, SignUpProps } from "@/@types/userType";
 import { accessApi } from "@/services/axios/accessApi";
 import { destroyCookie, setCookie } from "nookies";
 import { createContext, ReactNode, useContext } from "react";
@@ -7,7 +7,7 @@ import { useGlobalTools } from "./globalToolsContext";
 
 interface ContextProps {
   signIn: (data: SignInProps) => Promise<void>;
-  signUp: () => Promise<void>;
+  signUp: (data: SignUpProps) => Promise<void>;
   signOut: () => void;
 }
 
@@ -20,8 +20,12 @@ const Context = createContext({} as ContextProps);
 export function AccessContextProvider({ children }: ProviderProps) {
   const navigate = useNavigate();
 
-  const { successNotification, errorNotification, fetchLoadingScreen } =
-    useGlobalTools();
+  const {
+    successNotification,
+    errorNotification,
+    warningNotification,
+    fetchLoadingScreen,
+  } = useGlobalTools();
 
   const signIn = async (data: SignInProps) => {
     fetchLoadingScreen(true);
@@ -43,7 +47,29 @@ export function AccessContextProvider({ children }: ProviderProps) {
     }
   };
 
-  const signUp = async () => {};
+  const signUp = async (data: SignUpProps) => {
+    fetchLoadingScreen(true);
+    const res = await accessApi.signUp(data);
+    fetchLoadingScreen(false);
+
+    switch (res.status) {
+      case 201:
+        setCookie(res.data.token, "jodash.token", "value", {
+          path: "/",
+        });
+        successNotification("Successful Register");
+        navigate("/");
+        break;
+
+      case 409:
+        warningNotification("Account already exist");
+        break;
+
+      default:
+        errorNotification("Somenthing wrong, try again");
+        break;
+    }
+  };
 
   const signOut = () => {
     destroyCookie(null, "jodash.token");
