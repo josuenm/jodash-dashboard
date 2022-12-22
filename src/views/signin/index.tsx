@@ -1,7 +1,7 @@
 import { SignInProps } from "@/@types/userType";
 import { NormalButton, OutlineButton } from "@/components/buttons";
 import { Logo } from "@/components/header";
-import { useAccess } from "@/contexts/accessConextex";
+import { useAccess } from "@/contexts/accessContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
