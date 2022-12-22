@@ -12,15 +12,15 @@ function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <BrowserRouter>
-        <AccessContextProvider>
-          <GlobalToolsContextProvider>
+        <GlobalToolsContextProvider>
+          <AccessContextProvider>
             <CustomerContextProvider>
               <ProductContextProvider>
                 <Routes />
               </ProductContextProvider>
             </CustomerContextProvider>
-          </GlobalToolsContextProvider>
-        </AccessContextProvider>
+          </AccessContextProvider>
+        </GlobalToolsContextProvider>
       </BrowserRouter>
     </DndProvider>
   );
