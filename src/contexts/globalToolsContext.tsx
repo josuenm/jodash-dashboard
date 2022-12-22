@@ -9,6 +9,7 @@ interface ProviderProps {
 
 interface ContextProps {
   successNotification: (msg: string) => void;
+  warningNotification: (msg: string) => void;
   errorNotification: (msg: string) => void;
   fetchLoadingScreen: (value: boolean) => void;
 }
@@ -18,9 +19,16 @@ const Context = createContext({} as ContextProps);
 export function GlobalToolsContextProvider({ children }: ProviderProps) {
   const [loadingScreen, setLoadingScreen] = useState(false);
 
-  const errorNotification = (msg: string) => toast.error(msg);
+  const errorNotification = (msg: string) =>
+    toast.error(msg, {
+      autoClose: 2000,
+    });
   const successNotification = (msg: string) =>
     toast.success(msg, {
+      autoClose: 2000,
+    });
+  const warningNotification = (msg: string) =>
+    toast.warning(msg, {
       autoClose: 2000,
     });
 
@@ -30,7 +38,12 @@ export function GlobalToolsContextProvider({ children }: ProviderProps) {
 
   return (
     <Context.Provider
-      value={{ successNotification, errorNotification, fetchLoadingScreen }}
+      value={{
+        successNotification,
+        errorNotification,
+        warningNotification,
+        fetchLoadingScreen,
+      }}
     >
       <ToastContainer />
       <FetchLoadingScreen state={loadingScreen} />
