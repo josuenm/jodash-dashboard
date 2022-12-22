@@ -6,6 +6,7 @@ import AddProduct from "@/views/products/addProduct";
 import EditProduct from "@/views/products/edit";
 import Product from "@/views/products/product";
 import SignIn from "@/views/signin";
+import SignUp from "@/views/signup";
 import { parseCookies } from "nookies";
 import { useEffect } from "react";
 import { useLocation, useNavigate, useRoutes } from "react-router-dom";
@@ -23,6 +24,10 @@ export default function Routes() {
     {
       path: "/signin",
       element: <SignIn />,
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
     },
   ];
 

@@ -1,4 +1,4 @@
-import { SignInProps } from "@/@types/userType";
+import { SignUpProps } from "@/@types/userType";
 import { NormalButton, OutlineButton } from "@/components/buttons";
 import { Logo } from "@/components/header";
 import { useAccess } from "@/contexts/accessContext";
@@ -11,23 +11,24 @@ import * as yup from "yup";
 
 const schema = yup
   .object({
+    name: yup.string().required(),
     email: yup.string().required(),
     password: yup.string().required(),
   })
   .required();
 
-export default function SignIn() {
+export default function SignUp() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInProps>({
+  } = useForm<SignUpProps>({
     resolver: yupResolver(schema),
   });
 
-  const { signIn } = useAccess();
+  const { signUp } = useAccess();
 
-  const onSubmit = (data: SignInProps) => signIn(data);
+  const onSubmit = (data: SignUpProps) => signUp(data);
 
   const passwordRef = useRef<HTMLDivElement>(null);
 
@@ -59,6 +60,19 @@ export default function SignIn() {
         </header>
 
         <div className="flex flex-col gap-3">
+          <FormGroup>
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              className="form-input"
+              placeholder="Type your name"
+              {...register("name")}
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name?.message}</p>
+            )}
+          </FormGroup>
           <FormGroup>
             <label htmlFor="email">E-mail:</label>
             <input
@@ -104,9 +118,9 @@ export default function SignIn() {
         </div>
 
         <footer className="flex flex-col gap-2">
-          <NormalButton type="submit">Sign In</NormalButton>
-          <Link to="/signup">
-            <OutlineButton>I don't have an account</OutlineButton>
+          <NormalButton type="submit">Sign Up</NormalButton>
+          <Link to="/signin">
+            <OutlineButton type="button">I have an account</OutlineButton>
           </Link>
         </footer>
       </form>
