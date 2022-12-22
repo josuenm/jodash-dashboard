@@ -1,5 +1,9 @@
 import { SignInProps } from "@/@types/userType";
+import { accessApi } from "@/services/axios/accessApi";
+import { setCookie } from "nookies";
 import { createContext, ReactNode, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGlobalTools } from "./globalToolsContext";
 
 interface ContextProps {
   signIn: (data: SignInProps) => Promise<void>;
@@ -14,7 +18,30 @@ interface ProviderProps {
 const Context = createContext({} as ContextProps);
 
 export function AccessContextProvider({ children }: ProviderProps) {
-  const signIn = async (data: SignInProps) => {};
+  const navigate = useNavigate();
+
+  const { successNotification, errorNotification, fetchLoadingScreen } =
+    useGlobalTools();
+
+  const signIn = async (data: SignInProps) => {
+    fetchLoadingScreen(true);
+    const res = await accessApi.signIn(data);
+    fetchLoadingScreen(false);
+
+    switch (res.status) {
+      case 200:
+        setCookie(res.data.token, "jodash.token", "value", {
+          path: "/",
+        });
+        successNotification("Successful Login");
+        navigate("/");
+        break;
+
+      default:
+        errorNotification("Somenthing wrong, try again");
+        break;
+    }
+  };
 
   const signUp = async () => {};
 
