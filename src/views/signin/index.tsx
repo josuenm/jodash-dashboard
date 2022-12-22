@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 
 const schema = yup
@@ -64,7 +65,7 @@ export default function SignIn() {
               type="email"
               id="email"
               className="form-input"
-              placeholder="Type your address"
+              placeholder="Type your email"
               {...register("email")}
             />
             {errors.email && (
@@ -104,7 +105,9 @@ export default function SignIn() {
 
         <footer className="flex flex-col gap-2">
           <NormalButton type="submit">Sign In</NormalButton>
-          <OutlineButton>I don't have an account</OutlineButton>
+          <Link to="/signup">
+            <OutlineButton>I don't have an account</OutlineButton>
+          </Link>
         </footer>
       </form>
     </main>
