@@ -1,3 +1,4 @@
+import { useAccess } from "@/contexts/accessContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { SetStateAction, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -59,6 +60,8 @@ export function SidebarOption({ title, path, setIsActive }: SidebarProps) {
 }
 
 export function AsideMenu({ isActive, setIsActive }: SidemenuProps) {
+  const { signOut } = useAccess();
+
   return (
     <>
       {isActive && <Background onClick={() => setIsActive(false)} />}
@@ -91,7 +94,10 @@ export function AsideMenu({ isActive, setIsActive }: SidemenuProps) {
                 </ul>
               </header>
               <footer className="px-5 py-8 flex justify-center">
-                <button className="px-8 py-2 duration-300 bg-primary/20 hover:bg-primary/60 font-bold rounded-md">
+                <button
+                  className="px-8 py-2 duration-300 bg-primary/20 hover:bg-primary/40 font-bold rounded-md text-primary"
+                  onClick={signOut}
+                >
                   Sign out
                 </button>
               </footer>
