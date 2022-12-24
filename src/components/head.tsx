@@ -4,10 +4,10 @@ interface HeadProps {
   title: string;
 }
 
-export default function Head({ title }: HeadProps) {
+export default function Head(props: HeadProps) {
   useEffect(() => {
-    document.head.title = title ? `${title} - Jodash` : "Jodash";
-  }, []);
+    document.head.title = props.title;
+  }, [props]);
 
   return <></>;
 }
