@@ -280,14 +280,13 @@ export default function AddProduct() {
                 onChange={(e) => removeErrorFromInput(e.target.name)}
               />
               {errors.colors && <p className="text-red-500">{errors.colors}</p>}
-
-              <button
+              <NormalButton
                 type="button"
-                className="w-fit ml-auto bg-primary px-5 py-2 rounded-md text-md text-white font-medium"
+                className="w-fit py-2 self-end"
                 onClick={addColor}
               >
                 Add color
-              </button>
+              </NormalButton>
             </div>
           </FormGroup>
 
@@ -329,13 +328,13 @@ export default function AddProduct() {
               {errors.categories && (
                 <p className="text-red-500">{errors.categories}</p>
               )}
-              <button
+              <NormalButton
                 type="button"
-                className="w-fit ml-auto bg-primary px-5 py-2 rounded-md text-md text-white font-medium"
+                className="w-fit py-2 self-end"
                 onClick={addCategory}
               >
                 Add category
-              </button>
+              </NormalButton>
             </div>
           </FormGroup>
 
