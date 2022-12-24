@@ -4,6 +4,7 @@ import {
   ProductProps,
 } from "@/@types/productType";
 import { productApi } from "@/services/axios/productApi";
+import { destroyCookie } from "nookies";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobalTools } from "./globalToolsContext";
@@ -42,7 +43,23 @@ export function ProductContextProvider({ children }: ProviderProps) {
         break;
 
       case 401:
-        errorNotification("You don't have admin permissions");
+        switch (res.data.error) {
+          case "Token is required":
+            destroyCookie(null, "jodash.token");
+            errorNotification("Your access is invalid");
+            navigate("/signIn");
+            break;
+
+          case "Invalid token":
+            errorNotification("Your access is invalid");
+            destroyCookie(null, "jodash.token");
+            navigate("/signIn");
+            break;
+
+          case "Permission denied":
+            errorNotification("You don't have permission");
+            break;
+        }
         break;
 
       default:
@@ -60,6 +77,26 @@ export function ProductContextProvider({ children }: ProviderProps) {
       case 200:
         successNotification("Product updated successfully");
         navigate(`/products/${res.data.id}`);
+        break;
+
+      case 401:
+        switch (res.data.error) {
+          case "Token is required":
+            destroyCookie(null, "jodash.token");
+            errorNotification("Your access is invalid");
+            navigate("/signIn");
+            break;
+
+          case "Invalid token":
+            errorNotification("Your access is invalid");
+            destroyCookie(null, "jodash.token");
+            navigate("/signIn");
+            break;
+
+          case "Permission denied":
+            errorNotification("You don't have permission");
+            break;
+        }
         break;
 
       default:
@@ -108,6 +145,26 @@ export function ProductContextProvider({ children }: ProviderProps) {
       case 204:
         successNotification("Product deleted successfully");
         navigate("/products");
+        break;
+
+      case 401:
+        switch (res.data.error) {
+          case "Token is required":
+            destroyCookie(null, "jodash.token");
+            errorNotification("Your access is invalid");
+            navigate("/signIn");
+            break;
+
+          case "Invalid token":
+            errorNotification("Your access is invalid");
+            destroyCookie(null, "jodash.token");
+            navigate("/signIn");
+            break;
+
+          case "Permission denied":
+            errorNotification("You don't have permission");
+            break;
+        }
         break;
 
       default:
