@@ -76,7 +76,7 @@ export default function Product() {
                   </div>
                 ))
               ) : (
-                <div className="relative w-full h-60 border-2 border-slate-400 bg-slate-400 rounded-md flex justify-center items-center overflow-hidden md:w-96 md:h-96">
+                <div className="relative w-full bg-slate-400 rounded-md flex justify-center items-center overflow-hidden md:w-96 overflow-hidden">
                   {product.pictures[0]?.url && (
                     <img
                       src={product.pictures[0].url}
@@ -152,7 +152,7 @@ function DeleteModal({
               initial={{ opacity: 0, y: -300 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -300 }}
-              className="fixed top-1/4 right-0 left-0 w-11/12 mx-auto h-62 bg-white p-4 rounded-md shadow-around-sm z-40"
+              className="fixed top-1/4 right-0 left-0 w-11/12 md:max-w-md mx-auto h-62 bg-white p-4 rounded-md shadow-around-sm z-40"
             >
               <header className="border-b border-neutral-200">
                 <h3 className="text-lg font-bold pb-2">Are you sure?</h3>

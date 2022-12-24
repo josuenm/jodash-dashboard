@@ -1,4 +1,5 @@
 import { EditProductProps } from "@/@types/productType";
+import { NormalButton, OutlineButton } from "@/components/buttons";
 import Head from "@/components/head";
 import { FetchLoadingScreen } from "@/components/loading-screen";
 import { UploadImage } from "@/components/upload-image";
@@ -179,9 +180,9 @@ export default function EditProduct() {
 
       <FetchLoadingScreen state={isLoading} />
 
-      <h2 className="font-bold text-3xl">Create new product</h2>
+      <section className="my-8  md:max-w-md md:mx-auto">
+        <h2 className="font-bold text-3xl mb-8">Create new product</h2>
 
-      <section className="my-8">
         <form
           className="flex flex-col gap-4"
           onSubmit={onSubmit}
@@ -397,20 +398,17 @@ export default function EditProduct() {
             )}
           </FormGroup>
 
-          <FormGroup className="pt-6 border-t border-t-slate-300">
-            <button
-              type="submit"
-              className="bg-primary px-5 py-2 rounded-md text-md text-white font-medium"
-            >
+          <FormGroup className="pt-6 border-t border-t-slate-300 !gap-4">
+            <NormalButton type="submit" className="py-2">
               Confirm edition
-            </button>
-            <button
+            </NormalButton>
+            <OutlineButton
               type="button"
-              className="px-5 py-2 rounded-md text-md text-primary font-medium"
+              className="py-2"
               onClick={() => navigate("/products")}
             >
               Cancel
-            </button>
+            </OutlineButton>
           </FormGroup>
         </form>
       </section>
