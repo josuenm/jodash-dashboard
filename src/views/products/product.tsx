@@ -1,4 +1,5 @@
 import { ProductProps } from "@/@types/productType";
+import { NormalButton, OutlineButton } from "@/components/buttons";
 import Head from "@/components/head";
 import { FetchLoadingScreen } from "@/components/loading-screen";
 import { useProduct } from "@/contexts/productContext";
@@ -62,11 +63,15 @@ export default function Product() {
                 }`,
               }}
             >
-              {product.pictures.length > 1 ? (
+              {product.pictures.length === 0 ? (
+                <div className="relative w-full bg-slate-300 rounded-md flex justify-center items-center overflow-hidden md:w-96 h-60 overflow-hidden">
+                  <strong className="text-primary">No Picture</strong>
+                </div>
+              ) : product.pictures.length > 1 ? (
                 product.pictures.map((img, index) => (
                   <div
                     key={index}
-                    className="relative w-60 h-60 border-2 border-slate-400 rounded-md flex justify-center items-center overflow-hidden"
+                    className="relative w-60 h-60 border-2 border-slate-300 rounded-md flex justify-center items-center overflow-hidden"
                   >
                     <img
                       src={img.url}
@@ -161,18 +166,18 @@ function DeleteModal({
                 If you delete it, you will not be able to reverse this action.
               </p>
               <footer className="border-t border-neutral-200 py-2 flex justify-end gap-4">
-                <button
-                  className="bg-transparent text-primary rounded-md px-4 py-2 font-medium"
+                <OutlineButton
+                  className="w-fit py-2"
                   onClick={() => setState(false)}
                 >
                   Cancel
-                </button>
-                <button
-                  className="bg-red-500 text-white rounded-md px-4 py-2 font-medium"
+                </OutlineButton>
+                <NormalButton
+                  className="w-fit bg-red-500 py-2"
                   onClick={() => deleteProduct(id as string)}
                 >
                   Delete
-                </button>
+                </NormalButton>
               </footer>
             </motion.div>
           </>

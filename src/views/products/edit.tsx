@@ -189,14 +189,14 @@ export default function EditProduct() {
           id="createProductForm"
         >
           <FormGroup>
-            <label htmlFor="title" className="text-xl font-medium">
+            <label htmlFor="title" className="text-xl font-medium md:text-base">
               Title:
             </label>
             <input
               type="text"
               name="title"
               id="title"
-              className="bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary"
+              className="bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary md:text-base"
               placeholder="Type your title"
               value={inputs.title}
               onChange={onChange}
@@ -205,11 +205,14 @@ export default function EditProduct() {
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="description" className="text-xl font-medium">
+            <label
+              htmlFor="description"
+              className="text-xl font-medium md:text-base"
+            >
               Description:
             </label>
             <textarea
-              className="bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary"
+              className="bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary md:text-base"
               placeholder="Type your description"
               name="description"
               id="description"
@@ -222,7 +225,7 @@ export default function EditProduct() {
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="price" className="text-xl font-medium">
+            <label htmlFor="price" className="text-xl font-medium md:text-base">
               Price:
             </label>
             <div className="grid grid-cols-2 items-center gap-2">
@@ -230,12 +233,12 @@ export default function EditProduct() {
                 type="number"
                 name="price"
                 id="price"
-                className="bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary"
+                className="bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary md:text-base"
                 placeholder="Type your price"
                 value={inputs.price}
                 onChange={onChange}
               />
-              <span className="text-lg font-medium">
+              <span className="text-lg font-medium md:text-base">
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
@@ -247,7 +250,10 @@ export default function EditProduct() {
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="quantity" className="text-xl font-medium">
+            <label
+              htmlFor="quantity"
+              className="text-xl font-medium md:text-base"
+            >
               Available quantity:
             </label>
             <input
@@ -255,7 +261,7 @@ export default function EditProduct() {
               name="quantity"
               id="quantity"
               min={1}
-              className="bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary"
+              className="bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary md:text-base"
               placeholder="Type a quantity"
               value={inputs.quantity}
               onChange={onChange}
@@ -266,7 +272,10 @@ export default function EditProduct() {
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="colors" className="text-xl font-medium">
+            <label
+              htmlFor="colors"
+              className="text-xl font-medium md:text-base"
+            >
               Colors:
             </label>
             <div className="flex flex-col gap-2">
@@ -282,7 +291,9 @@ export default function EditProduct() {
                         className="shadow-around-sm bg-white rounded-lg px-4 py-3 border border-slate-400 flex justify-between items-center"
                         onClick={() => deleteColor(color)}
                       >
-                        <span className="text-slate-600">{color}</span>
+                        <span className="text-slate-600 md:text-base">
+                          {color}
+                        </span>
                         <MdClose className="w-5 h-5 text-slate-600" />
                       </motion.div>
                     ))}
@@ -293,24 +304,27 @@ export default function EditProduct() {
                 type="text"
                 name="colors"
                 id="colors"
-                className="col-span-2 bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary"
+                className="col-span-2 bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary md:text-base"
                 placeholder="Type your colors"
                 onChange={(e) => removeErrorFromInput(e.target.name)}
               />
               {errors.colors && <p className="text-red-500">{errors.colors}</p>}
 
-              <button
+              <NormalButton
                 type="button"
-                className="w-fit ml-auto bg-primary px-5 py-2 rounded-md text-md text-white font-medium"
                 onClick={addColor}
+                className="w-fit py-2 self-end"
               >
                 Add color
-              </button>
+              </NormalButton>
             </div>
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="categories" className="text-xl font-medium">
+            <label
+              htmlFor="categories"
+              className="text-xl font-medium md:text-base"
+            >
               Categories:
             </label>
             <div className="flex flex-col gap-2">
@@ -326,7 +340,9 @@ export default function EditProduct() {
                         className="shadow-around-sm bg-white rounded-lg px-4 py-3 border border-slate-400 flex justify-between items-center"
                         onClick={() => deleteCategory(category)}
                       >
-                        <span className="text-slate-600">{category.name}</span>
+                        <span className="text-slate-600 md:text-base">
+                          {category.name}
+                        </span>
                         <MdClose className="w-5 h-5 text-slate-600" />
                       </motion.div>
                     ))}
@@ -337,25 +353,29 @@ export default function EditProduct() {
                 type="text"
                 name="categories"
                 id="categories"
-                className="col-span-2 bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary"
+                className="col-span-2 bg-slate-100 border border-slate-300 rounded-md px-2 py-2 text-lg outline-none focus:border-primary md:text-base"
                 placeholder="Type your categories"
                 onChange={(e) => removeErrorFromInput(e.target.name)}
               />
               {errors.categories && (
                 <p className="text-red-500">{errors.categories}</p>
               )}
-              <button
+
+              <NormalButton
                 type="button"
-                className="w-fit ml-auto bg-primary px-5 py-2 rounded-md text-md text-white font-medium"
+                className="w-fit py-2 self-end"
                 onClick={addCategory}
               >
                 Add category
-              </button>
+              </NormalButton>
             </div>
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="pictures" className="text-xl font-medium">
+            <label
+              htmlFor="pictures"
+              className="text-xl font-medium md:text-base"
+            >
               Pictures:
             </label>
 
@@ -366,7 +386,7 @@ export default function EditProduct() {
             />
             {inputs.pictures.length > 0 && (
               <div className="mt-5">
-                <label className="text-xl font-medium">
+                <label className="text-xl font-medium md:text-base">
                   Photos that already exist:
                 </label>
                 <div className="mt-2 overflow-auto">
@@ -380,7 +400,7 @@ export default function EditProduct() {
                         className="relative w-44 h-44 border-2 border-slate-400 rounded-md flex justify-center items-center overflow-hidden"
                       >
                         <RiCloseCircleFill
-                          className="w-9 h-9 absolute top-2 right-2 text-white"
+                          className="w-9 h-9 md:w-5 md:h-5 hover:opacity-50 absolute top-2 right-2 text-white cursor-pointer"
                           onClick={() =>
                             deletePictureThatAlreadyExist(picture.id)
                           }
