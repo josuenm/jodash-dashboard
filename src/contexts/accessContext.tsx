@@ -34,11 +34,15 @@ export function AccessContextProvider({ children }: ProviderProps) {
 
     switch (res.status) {
       case 200:
-        setCookie(res.data.token, "jodash.token", "value", {
+        setCookie(null, "jodash.token", res.data.token, {
           path: "/",
         });
         successNotification("Successful Login");
         navigate("/");
+        break;
+
+      case 401:
+        errorNotification("Email or password is incorrect");
         break;
 
       default:
@@ -54,7 +58,7 @@ export function AccessContextProvider({ children }: ProviderProps) {
 
     switch (res.status) {
       case 201:
-        setCookie(res.data.token, "jodash.token", "value", {
+        setCookie(null, "jodash.token", res.data.token, {
           path: "/",
         });
         successNotification("Successful Register");
