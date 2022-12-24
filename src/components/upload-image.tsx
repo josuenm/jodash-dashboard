@@ -61,7 +61,7 @@ export function UploadImage({
                 className="relative w-44 h-44 border-2 border-slate-400 rounded-md flex justify-center items-center overflow-hidden"
               >
                 <RiCloseCircleFill
-                  className="w-9 h-9 absolute top-2 right-2 text-white"
+                  className="w-9 h-9 md:w-5 md:h-5 hover:opacity-50 cursor-pointer absolute top-2 right-2 text-white"
                   onClick={() => deletePicture(picture.name)}
                 />
                 <img
