@@ -52,7 +52,12 @@ export function SidebarOption({ title, path, setIsActive }: SidebarProps) {
 
   return (
     <Link to={path} onClick={() => setIsActive(false)}>
-      <li className={"px-5 font-medium text-xl md:text-md py-3 " + isActive}>
+      <li
+        className={
+          "duration-300 px-5 font-medium text-xl md:text-md py-3 hover:opacity-50 " +
+          isActive
+        }
+      >
         {title}
       </li>
     </Link>
