@@ -1,8 +1,6 @@
 import { EditProductProps, LocalProductProps } from "@/@types/productType";
+import { parseCookies } from "nookies";
 import { api } from "./api";
-
-const token =
-  "eyJhbGciOiJIUzI1NiJ9.N2NmZTVmODctYWRlMi00MjczLWIwYTctMTA5OGFmZTY4YzE0.k8jCoh-neYbDlloaY4RhaMKZI1xBPmQKUBX09d6KXFg";
 
 export const productApi = {
   createProduct: async (product: LocalProductProps) => {
@@ -19,11 +17,13 @@ export const productApi = {
       formData.append("files", picture, picture.name);
     });
 
+    const cookies = parseCookies();
+
     return await api
       .post("/product/create", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          authorization: `Bearer ${token}`,
+          authorization: `Bearer ${cookies["jodash.token"]}`,
         },
       })
       .catch((res) => res.response);
@@ -45,11 +45,13 @@ export const productApi = {
       formData.append("files", picture, picture.name);
     });
 
+    const cookies = parseCookies();
+
     return await api
       .put(`/product/edit/${product.id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          authorization: `Bearer ${token}`,
+          authorization: `Bearer ${cookies["jodash.token"]}`,
         },
       })
       .catch((res) => res.response);
@@ -64,11 +66,13 @@ export const productApi = {
   },
 
   deleteOneProduct: async (id: string) => {
+    const cookies = parseCookies();
+
     return await api
       .delete(`/product/delete/${id}`, {
         headers: {
           "Content-Type": "multipart/form-data",
-          authorization: `Bearer ${token}`,
+          authorization: `Bearer ${cookies["jodash.token"]}`,
         },
       })
       .catch((res) => res.response);
