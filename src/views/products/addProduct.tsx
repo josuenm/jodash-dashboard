@@ -265,7 +265,7 @@ export default function AddProduct() {
                         onClick={() => deleteColor(color)}
                       >
                         <span className="text-slate-600">{color}</span>
-                        <MdClose className="w-5 h-5 text-slate-600" />
+                        <MdClose className="w-5 h-5 text-slate-600 cursor-pointer" />
                       </motion.div>
                     ))}
                 </AnimatePresence>
@@ -311,7 +311,7 @@ export default function AddProduct() {
                         onClick={() => deleteCategory(category)}
                       >
                         <span className="text-slate-600">{category.name}</span>
-                        <MdClose className="w-5 h-5 text-slate-600" />
+                        <MdClose className="w-5 h-5 text-slate-600 cursor-pointer" />
                       </motion.div>
                     ))}
                 </AnimatePresence>

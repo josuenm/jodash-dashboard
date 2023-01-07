@@ -294,7 +294,7 @@ export default function EditProduct() {
                         <span className="text-slate-600 md:text-base">
                           {color}
                         </span>
-                        <MdClose className="w-5 h-5 text-slate-600" />
+                        <MdClose className="w-5 h-5 text-slate-600 cursor-pointer" />
                       </motion.div>
                     ))}
                 </AnimatePresence>
@@ -343,7 +343,7 @@ export default function EditProduct() {
                         <span className="text-slate-600 md:text-base">
                           {category.name}
                         </span>
-                        <MdClose className="w-5 h-5 text-slate-600" />
+                        <MdClose className="w-5 h-5 text-slate-600 cursor-pointer" />
                       </motion.div>
                     ))}
                 </AnimatePresence>
