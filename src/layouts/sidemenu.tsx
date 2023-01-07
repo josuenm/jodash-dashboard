@@ -45,16 +45,18 @@ export function Background({ onClick }: { onClick: () => void }) {
 export function SidebarOption({ title, path, setIsActive }: SidebarProps) {
   const { pathname } = useLocation();
 
-  const isActive =
-    pathname === path
-      ? "bg-primary/10 text-black border-r-4 border-r-primary"
-      : "text-black";
+  const pathFormatted = pathname.split("/");
+  pathFormatted.shift();
+
+  const isActive = pathFormatted.some((item) => `/${item}` === path)
+    ? "bg-primary/10 text-black border-r-4 border-r-primary"
+    : "text-black";
 
   return (
     <Link to={path} onClick={() => setIsActive(false)}>
       <li
         className={
-          "duration-300 px-5 font-medium text-xl md:text-md py-3 hover:opacity-50 " +
+          "duration-300 px-5 font-medium text-xl md:text-base py-3 hover:opacity-50 " +
           isActive
         }
       >
@@ -100,7 +102,7 @@ export function AsideMenu({ isActive, setIsActive }: SidemenuProps) {
               </header>
               <footer className="px-5 py-8 flex justify-center">
                 <button
-                  className="px-8 py-2 duration-300 bg-primary/20 hover:bg-primary/40 font-bold rounded-md text-primary"
+                  className="px-8 py-2 duration-300 bg-primary/20 hover:bg-primary/40 font-bold rounded-md text-primary md:text-base"
                   onClick={signOut}
                 >
                   Sign out
