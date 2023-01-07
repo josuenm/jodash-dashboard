@@ -14,8 +14,8 @@ interface CardProps {
 export function Card({ title, value }: CardProps) {
   return (
     <div className="bg-white p-5 shadow-around-sm rounded-lg flex flex-col justify-center gap-5 md:col-span-3 duration-300 md:hover:scale-105 cursor-pointer">
-      <p className="text-slate-600 text-lg font-medium">{title}</p>
-      <strong className="text-3xl">{value}</strong>
+      <p className="text-slate-600 text-lg md:text-base font-medium">{title}</p>
+      <strong className="text-3xl md:text-2xl">{value}</strong>
     </div>
   );
 }
@@ -91,12 +91,16 @@ export default function Dashboard() {
 
       <section className="flex flex-col gap-6 mb-12 md:grid md:grid-cols-12">
         <div className="w-full p-5 bg-white rounded-lg shadow-around-sm md:col-span-6">
-          <p className="mb-5">Sales today</p>
+          <p className="mb-5 text-slate-600 text-lg md:text-base font-medium">
+            Sales today
+          </p>
           <SalesTodayChart />
         </div>
 
         <div className="w-full p-5 bg-white rounded-lg shadow-around-sm md:col-span-6">
-          <p className="mb-5">Sales today</p>
+          <p className="mb-5 text-slate-600 text-lg md:text-base font-medium">
+            Sales today
+          </p>
           <SalesThisMonthChart />
         </div>
       </section>
