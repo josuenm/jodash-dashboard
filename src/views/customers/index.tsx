@@ -42,6 +42,11 @@ export default function Customers() {
       title: "Document",
       path: "document",
     },
+    {
+      id: 4,
+      title: "Date",
+      path: "date",
+    },
   ]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -75,6 +80,18 @@ export default function Customers() {
             className="w-9 h-9 rounded-md border"
           />
         );
+
+      case "date":
+        const date = new Date(item.date);
+        const handleDate = (date: number) => {
+          if (date < 10) {
+            return `0${date}`;
+          }
+          return date;
+        };
+        return `${handleDate(date.getMonth() + 1)}-${handleDate(
+          date.getDate()
+        )}-${date.getFullYear()}`;
 
       default:
         return item[path];
@@ -167,7 +184,7 @@ export function Th({ title, id, moveHeader, index }: ThProps) {
   return (
     <th
       ref={ref}
-      className={`w-[25%] p-3 text-start cursor-pointer md:hover:bg-slate-100 ${
+      className={`w-[20%] p-3 text-start cursor-pointer md:hover:bg-slate-100 ${
         index > 0 && "border-l border-l-slate-200"
       }`}
     >
