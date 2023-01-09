@@ -24,4 +24,8 @@ dist-ssr
 *.sw?
 
 
+<<<<<<< HEAD
+=======
+# Env files
+>>>>>>> 9c2d20176b1306f188c8eb4588f2a0c6a3f19254
 .env
